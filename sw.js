@@ -1,6 +1,6 @@
-// Offline support: serve the app shell from cache, refresh it in the background.
-const CACHE = "habits-v1";
-const ASSETS = ["./", "index.html", "style.css", "app.js", "manifest.webmanifest",
+// Offline support: load the latest files from the network, fall back to the cache offline.
+const CACHE = "habits-v3";
+const ASSETS = ["./", "index.html", "style.css", "app.js", "meditation.js", "manifest.webmanifest",
   "icons/icon-192.png", "icons/icon-512.png", "icons/apple-touch-icon.png"];
 
 self.addEventListener("install", (e) => {
@@ -18,14 +18,14 @@ self.addEventListener("activate", (e) => {
 self.addEventListener("fetch", (e) => {
   if (e.request.method !== "GET") return;
   e.respondWith(
-    caches.match(e.request).then((cached) => {
-      const fresh = fetch(e.request)
-        .then((res) => {
-          if (res.ok) caches.open(CACHE).then((c) => c.put(e.request, res.clone()));
-          return res;
-        })
-        .catch(() => cached);
-      return cached || fresh;
-    })
+    fetch(e.request)
+      .then((res) => {
+        if (res.ok) {
+          const copy = res.clone();
+          caches.open(CACHE).then((c) => c.put(e.request, copy));
+        }
+        return res;
+      })
+      .catch(() => caches.match(e.request, { ignoreSearch: true }))
   );
 });

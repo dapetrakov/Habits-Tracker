@@ -15,9 +15,13 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main class="app">
+  <!-- Main list of habits -->
+  <main class="app" id="list-view">
     <header class="top">
-      <h1>Habits</h1>
+      <div class="top-row">
+        <h1>Habits</h1>
+        <a class="meditate-link" href="#meditate">Meditate</a>
+      </div>
       <p id="today-label" class="muted"></p>
     </header>
 
@@ -34,21 +38,130 @@
     <div class="week-head" id="week-head" aria-hidden="true"></div>
     <ul id="habit-list" class="habit-list"></ul>
     <p id="empty" class="empty muted" hidden>No habits yet. Add one above to get started.</p>
+    <p id="list-hint" class="hint muted" hidden>Tap a habit's name to see its full history.</p>
+  </main>
+
+  <!-- History of one habit -->
+  <main class="app" id="detail-view" hidden>
+    <header class="detail-top">
+      <button id="back" class="back" type="button">‹ Habits</button>
+      <h1 id="detail-name"></h1>
+    </header>
+
+    <section class="stats" aria-label="Streaks and totals">
+      <div class="stat stat-main">
+        <span class="stat-value" id="stat-current">0</span>
+        <span class="stat-label">Current streak</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value" id="stat-best">0</span>
+        <span class="stat-label">Best streak</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value" id="stat-total">0</span>
+        <span class="stat-label">Days done</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value" id="stat-rate">0%</span>
+        <span class="stat-label">Last 30 days</span>
+      </div>
+    </section>
+    <p id="streak-note" class="streak-note muted"></p>
+
+    <section class="card calendar" aria-label="Calendar">
+      <div class="cal-head">
+        <button id="prev-month" class="nav" type="button" aria-label="Previous month">‹</button>
+        <h2 id="month-label"></h2>
+        <button id="next-month" class="nav" type="button" aria-label="Next month">›</button>
+      </div>
+      <div class="cal-grid cal-weekdays" id="cal-weekdays" aria-hidden="true"></div>
+      <div class="cal-grid" id="cal-days"></div>
+      <p class="muted small">Tap a day to mark it done or not done.</p>
+    </section>
+
+    <section class="card" id="sessions-card" hidden>
+      <h2>Meditation sessions</h2>
+      <p id="sessions-summary" class="muted sessions-summary"></p>
+      <ul id="sessions-list" class="sessions-list"></ul>
+    </section>
+
+    <section class="card">
+      <h2>Month by month</h2>
+      <ul id="months" class="months"></ul>
+    </section>
+  </main>
+
+  <!-- Meditation timer -->
+  <main class="app" id="meditate-view" hidden>
+    <header class="detail-top">
+      <a class="back" href="#">‹ Habits</a>
+      <h1>Meditate</h1>
+    </header>
+
+    <section class="timer-face" aria-live="polite">
+      <svg class="ring" viewBox="0 0 120 120" aria-hidden="true">
+        <circle class="ring-track" cx="60" cy="60" r="54"></circle>
+        <circle class="ring-fill" id="ring-fill" cx="60" cy="60" r="54"></circle>
+      </svg>
+      <div class="timer-center">
+        <span id="time-left" class="time-left">10:00</span>
+        <span id="timer-status" class="muted timer-status">Ready</span>
+      </div>
+    </section>
+
+    <div id="setup">
+      <div class="presets" id="presets" role="group" aria-label="Session length">
+        <button type="button" data-min="5">5 min</button>
+        <button type="button" data-min="10">10 min</button>
+        <button type="button" data-min="15">15 min</button>
+        <button type="button" data-min="20">20 min</button>
+        <button type="button" data-min="30">30 min</button>
+      </div>
+      <label class="custom">
+        <span>Or set minutes</span>
+        <input id="custom-min" type="number" inputmode="numeric" min="1" max="180" step="1">
+      </label>
+    </div>
+
+    <div class="timer-buttons">
+      <button id="start" class="primary-btn" type="button">Start</button>
+      <button id="pause" class="secondary-btn" type="button" hidden>Pause</button>
+      <button id="end" class="secondary-btn" type="button" hidden>End early</button>
+    </div>
+
+    <p id="done-message" class="done-message" hidden></p>
+
+    <section class="card settings" id="settings">
+      <label class="row">
+        <span>Log sessions to</span>
+        <select id="log-habit"></select>
+      </label>
+      <label class="row">
+        <span>Bell at the start</span>
+        <input id="start-bell" type="checkbox">
+      </label>
+      <div class="row">
+        <span>Bell sound</span>
+        <button id="test-bell" class="link-btn" type="button">Play</button>
+      </div>
+      <p class="muted small">Keep the app open while you meditate. If the screen locks or you switch apps, the bell can't ring on time, but the session is still logged when you come back.</p>
+    </section>
   </main>
 
   <template id="habit-template">
     <li class="habit">
       <button class="check" type="button" aria-label="Mark done today"></button>
-      <div class="info">
+      <button class="info" type="button">
         <span class="name"></span>
         <span class="streak muted"></span>
-      </div>
+      </button>
       <div class="days"></div>
       <button class="delete" type="button" aria-label="Delete habit" title="Delete">×</button>
     </li>
   </template>
 
   <script src="app.js"></script>
+  <script src="meditation.js"></script>
   <script>
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
