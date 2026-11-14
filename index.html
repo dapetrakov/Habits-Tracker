@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Habit Tracker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+    <header class="top">
+      <h1>Habits</h1>
+      <p id="today-label" class="muted"></p>
+    </header>
+
+    <section class="progress" aria-live="polite">
+      <div class="progress-bar"><div id="progress-fill"></div></div>
+      <p id="progress-text" class="muted"></p>
+    </section>
+
+    <form id="add-form" class="add-form" autocomplete="off">
+      <input id="habit-input" type="text" placeholder="New habit, e.g. Drink water" maxlength="60" required aria-label="New habit name">
+      <button type="submit">Add</button>
+    </form>
+
+    <div class="week-head" id="week-head" aria-hidden="true"></div>
+    <ul id="habit-list" class="habit-list"></ul>
+    <p id="empty" class="empty muted" hidden>No habits yet. Add one above to get started.</p>
+  </main>
+
+  <template id="habit-template">
+    <li class="habit">
+      <button class="check" type="button" aria-label="Mark done today"></button>
+      <div class="info">
+        <span class="name"></span>
+        <span class="streak muted"></span>
+      </div>
+      <div class="days"></div>
+      <button class="delete" type="button" aria-label="Delete habit" title="Delete">×</button>
+    </li>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>
