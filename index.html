@@ -18,7 +18,10 @@
   <!-- Main list of habits -->
   <main class="app" id="list-view">
     <header class="top">
-      <h1>Habits</h1>
+      <div class="top-row">
+        <h1>Habits</h1>
+        <a class="meditate-link" href="#meditate">Meditate</a>
+      </div>
       <p id="today-label" class="muted"></p>
     </header>
 
@@ -76,9 +79,72 @@
       <p class="muted small">Tap a day to mark it done or not done.</p>
     </section>
 
+    <section class="card" id="sessions-card" hidden>
+      <h2>Meditation sessions</h2>
+      <p id="sessions-summary" class="muted sessions-summary"></p>
+      <ul id="sessions-list" class="sessions-list"></ul>
+    </section>
+
     <section class="card">
       <h2>Month by month</h2>
       <ul id="months" class="months"></ul>
+    </section>
+  </main>
+
+  <!-- Meditation timer -->
+  <main class="app" id="meditate-view" hidden>
+    <header class="detail-top">
+      <a class="back" href="#">‹ Habits</a>
+      <h1>Meditate</h1>
+    </header>
+
+    <section class="timer-face" aria-live="polite">
+      <svg class="ring" viewBox="0 0 120 120" aria-hidden="true">
+        <circle class="ring-track" cx="60" cy="60" r="54"></circle>
+        <circle class="ring-fill" id="ring-fill" cx="60" cy="60" r="54"></circle>
+      </svg>
+      <div class="timer-center">
+        <span id="time-left" class="time-left">10:00</span>
+        <span id="timer-status" class="muted timer-status">Ready</span>
+      </div>
+    </section>
+
+    <div id="setup">
+      <div class="presets" id="presets" role="group" aria-label="Session length">
+        <button type="button" data-min="5">5 min</button>
+        <button type="button" data-min="10">10 min</button>
+        <button type="button" data-min="15">15 min</button>
+        <button type="button" data-min="20">20 min</button>
+        <button type="button" data-min="30">30 min</button>
+      </div>
+      <label class="custom">
+        <span>Or set minutes</span>
+        <input id="custom-min" type="number" inputmode="numeric" min="1" max="180" step="1">
+      </label>
+    </div>
+
+    <div class="timer-buttons">
+      <button id="start" class="primary-btn" type="button">Start</button>
+      <button id="pause" class="secondary-btn" type="button" hidden>Pause</button>
+      <button id="end" class="secondary-btn" type="button" hidden>End early</button>
+    </div>
+
+    <p id="done-message" class="done-message" hidden></p>
+
+    <section class="card settings" id="settings">
+      <label class="row">
+        <span>Log sessions to</span>
+        <select id="log-habit"></select>
+      </label>
+      <label class="row">
+        <span>Bell at the start</span>
+        <input id="start-bell" type="checkbox">
+      </label>
+      <div class="row">
+        <span>Bell sound</span>
+        <button id="test-bell" class="link-btn" type="button">Play</button>
+      </div>
+      <p class="muted small">Keep the app open while you meditate. If the iPad locks or you switch apps, the bell can't ring on time, but the session is still logged when you come back.</p>
     </section>
   </main>
 
@@ -95,6 +161,7 @@
   </template>
 
   <script src="app.js"></script>
+  <script src="meditation.js"></script>
   <script>
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));

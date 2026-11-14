@@ -8,6 +8,9 @@ A simple, dependency-free habit tracker that runs in the browser.
 - Tap a habit to see its full history: a month-by-month calendar going back to
   the first day you tracked it, your current and best streaks, total days done,
   and how often you did it in the last 30 days
+- Meditation timer (5–30 minutes or any length) with a temple-bell sound at the
+  start and end; each completed session checks off your meditation habit for
+  that day and is listed, with its minutes, in the habit's history
 - Data is saved in your browser (`localStorage`), so there's no account or server
 
 ## Run it

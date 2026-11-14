@@ -1,6 +1,6 @@
 // Offline support: load the latest files from the network, fall back to the cache offline.
-const CACHE = "habits-v2";
-const ASSETS = ["./", "index.html", "style.css", "app.js", "manifest.webmanifest",
+const CACHE = "habits-v3";
+const ASSETS = ["./", "index.html", "style.css", "app.js", "meditation.js", "manifest.webmanifest",
   "icons/icon-192.png", "icons/icon-512.png", "icons/apple-touch-icon.png"];
 
 self.addEventListener("install", (e) => {

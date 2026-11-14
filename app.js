@@ -24,7 +24,11 @@
   const plural = (n, word) => `${n} ${word}${n === 1 ? "" : "s"}`;
 
   // ---- State ----
-  // { habits: [{ id, name, created: "YYYY-MM-DD", done: { "YYYY-MM-DD": true } }] }
+  // {
+  //   habits: [{ id, name, created: "YYYY-MM-DD", done: { "YYYY-MM-DD": true },
+  //              sessions?: [{ date: "YYYY-MM-DD", minutes, at: ISO time }] }],
+  //   settings?: { meditation: { habitId, minutes, startBell } },
+  // }
   const load = () => {
     try {
       const data = JSON.parse(localStorage.getItem(STORAGE_KEY));
@@ -267,6 +271,28 @@
       grid.appendChild(b);
     }
 
+    // Meditation sessions logged by the timer
+    const sessions = Array.isArray(h.sessions) ? h.sessions : [];
+    $("#sessions-card").hidden = sessions.length === 0;
+    if (sessions.length) {
+      const totalMin = sessions.reduce((sum, x) => sum + (x.minutes || 0), 0);
+      const hours = Math.floor(totalMin / 60), mins = totalMin % 60;
+      $("#sessions-summary").textContent =
+        `${plural(sessions.length, "session")} · ${hours ? `${hours} h ` : ""}${mins} min in total`;
+      const ul = $("#sessions-list");
+      ul.innerHTML = "";
+      for (const x of sessions.slice(-10).reverse()) {
+        const li = document.createElement("li");
+        const when = new Date(x.at || fromKey(x.date));
+        li.innerHTML = `<span></span><span class="muted"></span>`;
+        li.children[0].textContent = `${x.minutes} min`;
+        li.children[1].textContent = when.toLocaleString(undefined, {
+          weekday: "short", month: "short", day: "numeric", hour: "numeric", minute: "2-digit",
+        });
+        ul.appendChild(li);
+      }
+    }
+
     // Month-by-month summary, newest first, back to the first record
     const months = $("#months");
     months.innerHTML = "";
@@ -299,14 +325,39 @@
   };
 
   const render = () => {
-    const id = detailId();
-    $("#list-view").hidden = !!id;
+    const meditating = location.hash === "#meditate";
+    const id = meditating ? null : detailId();
+    $("#list-view").hidden = !!id || meditating;
     $("#detail-view").hidden = !id;
-    if (id) renderDetail(id);
+    $("#meditate-view").hidden = !meditating;
+    if (meditating) {
+      document.title = "Meditate · Habits";
+      if (window.Meditation) window.Meditation.render();
+    } else if (id) renderDetail(id);
     else {
       document.title = "Habit Tracker";
       renderList();
     }
+  };
+
+  // ---- Shared with meditation.js ----
+  window.HabitApp = {
+    get state() { return state; },
+    save,
+    render,
+    todayKey,
+    findHabit,
+    currentStreak,
+    addHabit(name) {
+      const h = {
+        id: Date.now().toString(36) + Math.random().toString(36).slice(2, 7),
+        name,
+        created: todayKey(),
+        done: {},
+      };
+      state.habits.push(h);
+      return h;
+    },
   };
 
   // ---- Events ----
@@ -315,12 +366,7 @@
     const input = $("#habit-input");
     const name = input.value.trim();
     if (!name) return;
-    state.habits.push({
-      id: Date.now().toString(36) + Math.random().toString(36).slice(2, 7),
-      name,
-      created: todayKey(),
-      done: {},
-    });
+    window.HabitApp.addHabit(name);
     save();
     input.value = "";
     render();
