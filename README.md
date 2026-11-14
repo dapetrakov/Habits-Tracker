@@ -10,3 +10,14 @@ A simple, dependency-free habit tracker that runs in the browser.
 ## Run it
 
 Open `index.html` in any browser. That's it.
+
+## Install it on your phone
+
+The app is a Progressive Web App: once it's hosted over HTTPS, open the link on
+your phone and add it to your home screen. It then opens full-screen with its own
+icon and works offline.
+
+- **iPhone (Safari):** Share button → *Add to Home Screen*
+- **Android (Chrome):** menu (⋮) → *Install app* / *Add to Home screen*
+
+Your habits are stored on the device you use, so each phone or browser keeps its own list.

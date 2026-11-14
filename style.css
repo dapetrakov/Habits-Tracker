@@ -34,7 +34,10 @@ body {
 .app {
   max-width: 560px;
   margin: 0 auto;
-  padding: 32px 16px 64px;
+  padding: calc(32px + env(safe-area-inset-top, 0px))
+    max(16px, env(safe-area-inset-right, 0px))
+    calc(64px + env(safe-area-inset-bottom, 0px))
+    max(16px, env(safe-area-inset-left, 0px));
 }
 
 .top h1 { margin: 0; font-size: 28px; }
