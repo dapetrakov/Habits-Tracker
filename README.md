@@ -11,6 +11,12 @@ A simple, dependency-free habit tracker that runs in the browser.
 
 Open `index.html` in any browser. That's it.
 
+## Hosting
+
+Every push to `main` deploys the app to GitHub Pages
+(`.github/workflows/pages.yml`). The site is at
+`https://dapetrakov.github.io/Habits-Tracker/`.
+
 ## Install it on your phone
 
 The app is a Progressive Web App: once it's hosted over HTTPS, open the link on
