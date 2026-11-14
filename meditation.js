@@ -50,6 +50,13 @@
   // near-identical partials that gives the "wah-wah" shimmer.
   let ctx = null;
   const audio = () => {
+    // On iPhone, web sound is normally muted by Silent mode. Declaring this as
+    // media playback (like a music app) lets the bell ring anyway (iOS 17+).
+    try {
+      if (navigator.audioSession && navigator.audioSession.type !== "playback") {
+        navigator.audioSession.type = "playback";
+      }
+    } catch (_) { /* not supported: falls back to the default behaviour */ }
     if (!ctx) {
       const AC = window.AudioContext || window.webkitAudioContext;
       if (!AC) return null;
