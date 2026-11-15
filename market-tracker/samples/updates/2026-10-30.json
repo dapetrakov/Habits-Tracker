@@ -1,0 +1,80 @@
+{
+  "issue_date": "2026-10-30",
+  "window_start": "2026-10-16",
+  "window_end": "2026-10-29",
+  "top3": [
+    "s1",
+    "s2",
+    "s3"
+  ],
+  "items": [
+    {
+      "id": "s1",
+      "date": "2026-10-28",
+      "company": "TGS",
+      "type": "Competitor",
+      "topic": "Surveys & reprocessing",
+      "region": "Western Hemisphere",
+      "headline": "SAMPLE: placeholder surveys & reprocessing item for TGS",
+      "summary": "Placeholder text to preview the layout. Not a real event.",
+      "source_name": "Example Publisher",
+      "source_url": "https://example.com/s1"
+    },
+    {
+      "id": "s2",
+      "date": "2026-10-24",
+      "company": "Halliburton Landmark",
+      "type": "Competitor",
+      "topic": "AI & data",
+      "region": "Global",
+      "headline": "SAMPLE: placeholder ai & data item for Halliburton Landmark",
+      "summary": "Placeholder text to preview the layout. Not a real event.",
+      "source_name": "Example Publisher",
+      "source_url": "https://example.com/s2"
+    },
+    {
+      "id": "s3",
+      "date": "2026-10-22",
+      "company": "Example Energy Co",
+      "type": "Customer",
+      "topic": "Budgets & activity",
+      "region": "Western Hemisphere",
+      "headline": "SAMPLE: placeholder budgets & activity item for Example Energy Co",
+      "summary": "Placeholder text to preview the layout. Not a real event.",
+      "source_name": "Example Publisher",
+      "source_url": "https://example.com/s3"
+    },
+    {
+      "id": "s4",
+      "date": "2026-10-20",
+      "company": "Example Ministry",
+      "type": "Licensing round",
+      "topic": "Licensing rounds",
+      "region": "Eastern Hemisphere",
+      "headline": "SAMPLE: placeholder licensing rounds item for Example Ministry",
+      "summary": "Placeholder text to preview the layout. Not a real event.",
+      "source_name": "Example Publisher",
+      "source_url": "https://example.com/s4"
+    },
+    {
+      "id": "s5",
+      "date": "2026-10-17",
+      "company": "Example Geo Ltd",
+      "type": "Competitor",
+      "topic": "Contracts & awards",
+      "region": "Eastern Hemisphere",
+      "headline": "SAMPLE: placeholder contracts & awards item for Example Geo Ltd",
+      "summary": "Placeholder text to preview the layout. Not a real event.",
+      "source_name": "Example Publisher",
+      "source_url": "https://example.com/s5"
+    }
+  ],
+  "coming_up": [
+    {
+      "date": "2026-11-20",
+      "event": "SAMPLE: placeholder conference",
+      "url": "https://example.com/event"
+    }
+  ],
+  "conversation_starter": "SAMPLE: placeholder conversation starter."
+}
