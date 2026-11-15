@@ -1,0 +1,12 @@
+{
+  "competitors": [
+    { "slug": "tgs", "name": "TGS", "aliases": ["TGS", "TGS ASA", "TGS-NOPEC", "TGS NOPEC", "PGS"] },
+    { "slug": "viridien", "name": "Viridien", "aliases": ["Viridien", "CGG", "Sercel"] },
+    { "slug": "slb", "name": "SLB", "aliases": ["SLB", "Schlumberger", "WesternGeco", "SLB Digital"] },
+    { "slug": "halliburton", "name": "Halliburton", "aliases": ["Halliburton", "Halliburton Landmark", "Landmark"] },
+    { "slug": "aspentech", "name": "AspenTech", "aliases": ["AspenTech", "Aspen Technology", "Emerson AspenTech"] },
+    { "slug": "cegal", "name": "Cegal", "aliases": ["Cegal"] },
+    { "slug": "ikon-science", "name": "Ikon Science", "aliases": ["Ikon Science", "Ikon"] },
+    { "slug": "shearwater", "name": "Shearwater", "aliases": ["Shearwater", "Shearwater GeoServices"] }
+  ]
+}
